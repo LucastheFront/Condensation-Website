@@ -1,31 +1,38 @@
 import Image from 'next/image'
-import imageTop from '../assets/img/user-case-privacy-phone.png';
-import imageBottom from '../assets/img/user-case-privacy-person.png';
-import imageSide from '../assets/img/user-case-privacy-texting.png';
 
+export default function UseCases({content, imageTop, altTop, imageBottom, altBottom, imageSide, altSide, textLeft}) {
+    const text = <h1 className='use-cases-title font-bold text-3xl px-10 my-7 xl:my-auto'> 
+                    {content}
+                </h1>
 
-export default function UseCases(content) {
+    let leftImages = <div className='flex flex-col my-auto'>
+                        <div className='pb-7'> 
+                            <Image src={imageTop} alt={altTop} height='285px' />
+                        </div>
+                        <div className='flex'>
+                            <Image src={imageBottom} alt={altBottom} height='285px' />
+                        </div> 
+                    </div>
+
+    let rightImage = <div className='flex p-10'>
+                        <Image src={imageSide} alt={altSide} height='600px' width='300px' />
+                    </div>
+
+    const [firstImage, secondImage] = textLeft ? [leftImages, rightImage] : [rightImage, leftImages]
+
+    const images = <div className='flex items-center mx-auto'>
+                        {firstImage}
+                        {secondImage}
+                    </div>
+
+    const [firstElem, secondElem] = textLeft ? [text, images] : [images, text]
+
     return(
-        <div className='bg-[#EAEAEA] flex flex-col md:flex-row w-[80%] m-auto'>
-            <p className='w-[60%] md:w-[40%] text-[3vw] md:text-[1.9vw] ml-10 mt-10 md:m-auto md:ml-10'>
-            {content}
-            </p>
-            <div className='w-[90%] md:w-[55%] flex p-10 m-auto'>
-                <div className='w-[48%] my-auto'>
-                    <Image 
-                    src={imageTop}
-                    alt="Use case illustration" />
-                    <Image 
-                    src={imageBottom}
-                    alt="Use case illustration" />
-                </div>
-                <div className='w-[48%] ml-10 mx-auto'>
-                    <Image 
-                    src={imageSide}
-                    alt="Use case illustration" />
-                </div>
-            </div>
-        </div>
+        <div className='use-cases-container bg-gray-200 flex flex-col xl:flex-row my-20 ml-24 mr-14'> 
+            {firstElem}
+            {secondElem}
+         </div> 
     )
 }
+
 
